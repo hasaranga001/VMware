@@ -1,0 +1,6 @@
+ In the ESXi host : 
+	cd /vmfs/volumes/<DS Name>/<vm name>
+	ls *vmdk|egrep -v flat|while read file;do echo -n "$file" : ;awk -F= '/uuid/ {print $NF}' "$file"|sed -e 's/[ |-]//g' ; done
+	
+	In the VM 
+	 ls -1 /dev/sd?|while read device; do echo -n $device :; /lib/udev/scsi_id --page=0x83 --whitelisted --device=$device; done
