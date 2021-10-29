@@ -1,0 +1,11 @@
+Stroage VMotion
+
+Get-VM “pgsql-hhsb-024“ |Move-VM -datastore (Get-Datastore “nfs-hh-tegile6-db-ds01“)
+
+Adding tags
+
+$datastores = Get-datastore fc-hl-na-vi04-delphix-silver-ds09
+$Tag = Get-Tag Harlow
+$Tag2 = Get-Tag hl-db-delphix-prod-silver
+New-TagAssignment -Tag $Tag,Tag2 -Entity $datastore
+
