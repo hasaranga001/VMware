@@ -1,6 +1,16 @@
  In the ESXi host : 
+ 
+ 
 	cd /vmfs/volumes/<DS Name>/<vm name>
 	ls *vmdk|egrep -v flat|while read file;do echo -n "$file" : ;awk -F= '/uuid/ {print $NF}' "$file"|sed -e 's/[ |-]//g' ; done
 	
-	In the VM 
+For Linux : 
+
 	 ls -1 /dev/sd?|while read device; do echo -n $device :; /lib/udev/scsi_id --page=0x83 --whitelisted --device=$device; done
+For Windows : 
+
+get-partition -driveletter G | get-disk
+
+
+
+The Device ID is always c. At the controller, it depends whether you are using the Paravirtual (b) controller, or the LSI Logic (a) controller. From the PowerCLI example and the Linux output you can see that both disks are in the same order. /dev/sde has the SCSI ID 0:0:4:0 which is the equivalent to 0:4 and is Hard Disk 5. As mentioned, when you remove and add disks, the order might change so always doublecheck if you want to remove disks from a Virtual Machine.
