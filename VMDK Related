@@ -1,3 +1,5 @@
+ Getting VMDK Serial Number
+ 
  In the ESXi host : 
  
  
@@ -14,3 +16,7 @@ get-partition -driveletter G | get-disk
 
 
 The Device ID is always c. At the controller, it depends whether you are using the Paravirtual (b) controller, or the LSI Logic (a) controller. From the PowerCLI example and the Linux output you can see that both disks are in the same order. /dev/sde has the SCSI ID 0:0:4:0 which is the equivalent to 0:4 and is Hard Disk 5. As mentioned, when you remove and add disks, the order might change so always doublecheck if you want to remove disks from a Virtual Machine.
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+
