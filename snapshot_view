@@ -1,0 +1,3 @@
+View all snapshots : 
+
+Get-VM | Get-Snapshot | select vm, name, description, created, sizegb | Format-Table -AutoSize
