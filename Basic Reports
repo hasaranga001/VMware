@@ -1,4 +1,6 @@
-Get ESXi versions of hosts
+##Get ESXi versions of hosts
 get-vmhost | Select Name, @{N=”Cluster”;E={Get-Cluster -VMHost $_}},@{Label = "ESX Build" ; Expression = {$_.build}},@{Label = "Server Model"; Expression = {$_.ExtensionData.Hardware.SystemInfo.Vendor}}  
 
 | Export-csv "C:\Users\hasaranga\Downloads\c\HH-VI-DB.csv"
+
+## Get Cluster details (hosts)
