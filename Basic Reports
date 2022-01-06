@@ -3,4 +3,5 @@ get-vmhost | Select Name, @{N=”Cluster”;E={Get-Cluster -VMHost $_}},@{Label 
 
 | Export-csv "C:\Users\hasaranga\Downloads\c\HH-VI-DB.csv"
 
-## Get Cluster details (hosts)
+## Get VM disk type
+ Get-VM "VM Name" | Get-HardDisk | Format-Table
