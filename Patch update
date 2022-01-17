@@ -1,0 +1,20 @@
+
+1 - Put your ESXi Host in Maintenace Mode.
+2 - Upload the file to a datastore.
+Login to Vmware Vsphere web client, Select Esxi server or datastore, on the Configure tab / Manage tab for ESXi, Select Storage/ Datastores, right-click datastore, where you want to upload files, click Browse Files from the context menu.
+
+3- Enable SSH on ESXi Host
+
+4- Connect by ssh
+
+5- Locate the file cd /vmfs/volumes and cd the datastore you upload the file and type the ls to locate the file.
+
+6- Verify the profiles available to install change the "/vmfs/pathtothefile/ " for the location of file and type
+
+esxcli software sources profile list -d "/vmfs/pathtothefile/ESXi670-202111001.zip"
+
+Then you get the available profiles. You pick one (usually the standard) and:
+
+esxcli software profile update -p ESXi-nameoftheprofile -d "/vmfs/pathtothefile/ESXi670-202111001.zip"
+
+7 - Reboot the ESXi
