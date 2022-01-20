@@ -13,3 +13,5 @@ New-TagAssignment -Tag $Tag,Tag2 -Entity $datastore
 Adding a NFS share 
 esxcli storage nfs add -H NFS_IP|NFS_HOSTNAME -s Share_mount_point_on_the_NFS -v DatastoreName
 
+Enable SSH client when SSH from ESXi host to another ESXi host.
+esxcli network firewall ruleset set --ruleset-id sshClient --enabled=true
