@@ -12,3 +12,7 @@ Get-VMHost | select-object Name, manufacturer, model, ProcessorType, NumCPU, @{l
 # Server NIC card details
 
 foreach ($h in (Get-Vmhost)){(Get-EsxCli -VMHost $h).network.nic.list() | Select @{N="Model";E={$h}},@{N="DataCenter";E={$h | Get-DataCenter}},@{N="Cluster";E={$h | Get-Cluster}}, Name, Description | ft}
+
+# List VMFS version
+
+Get-Datastore | Get-View | Select-Object Name, @{N="VMFS version";E={$_.Info.Vmfs.Version}}, @{N="BlocksizeMB";E={$_.Info.Vmfs.BlockSizeMB}} | Export-Csv c:\hasa\hx-datastore-vmfs.csv
