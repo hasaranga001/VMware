@@ -22,3 +22,12 @@ esxcli network firewall ruleset set --ruleset-id sshClient --enabled=true
 
 SCP Copy command
 scp file.txt remote_username@10.10.0.2:/remote/directory
+
+
+Detach datatstore : 
+
+esxcli storage core device set --state=off -d naa.600a0980383142304f5d4f73754c6a69
+
+
+esxcli storage core device detached list
+esxcli storage core adapter rescan --all
