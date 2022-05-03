@@ -31,3 +31,10 @@ esxcli storage core device set --state=off -d naa.600a0980383142304f5d4f73754c6a
 
 esxcli storage core device detached list
 esxcli storage core adapter rescan --all
+
+
+Changing Storage Policy / Encrypt VM
+$VM = Get-VM -Name 'Tanzu DHCP'
+$storagePolicy = Get-SpbmStoragePolicy -Name 'VM Encryption Policy'
+
+Set-VM $VM -StoragePolicy $storagePolicy -Confirm:$false
