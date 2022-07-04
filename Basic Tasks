@@ -2,6 +2,17 @@ Stroage VMotion
 
 Get-VM “pgsql-hhsb-024“ |Move-VM -datastore (Get-Datastore “nfs-hh-tegile6-db-ds01“)
 
+Storage vMotion one by one VM. 
+$VMsToRelocate = Import-Csv "C:\script\VM_list.csv"
+$Datastore = Get-Datastore -Name "destination_datastore_name"
+foreach ($VM in $VMsToRelocate)
+{
+    Write-Host "Relocating VM:" $VM.Name "to" $Datastore
+    Get-VM -Name $VM.Name | Move-VM -datastore $Datastore > $null
+	Write-Host "[DONE] Relocating VM:" $VM.Name "to" $Datastore
+}
+Write-Host "Completed!"
+
 Adding tags
 
 $datastores = Get-datastore fc-hl-na-vi04-delphix-silver-ds09
