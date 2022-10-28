@@ -1,3 +1,11 @@
+# Troubleshoot LACP related issues. 
+esxcli network vswitch dvs vmware lacp config get
+ esxcli network vswitch dvs vmware lacp stats get
+esxcli network vswitch dvs vmware lacp status get
+
+
+
+
 # Creating a PortGroup in vDS
 
 ###################### Variables - Ammend! #####################
