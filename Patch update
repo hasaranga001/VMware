@@ -17,4 +17,9 @@ Then you get the available profiles. You pick one (usually the standard) and:
 
 esxcli software profile update -p ESXi-nameoftheprofile -d "/vmfs/pathtothefile/ESXi670-202111001.zip"
 
+EX: 
+esxcli software sources profile list -d "/vmfs/volumes/c0c1d3a9-1e99b40c/ISO/VMware-ESXi-7.0U3g-20328353-depot.zip"
+
+esxcli software profile update -p ESXi-7.0U3g-20328353-standard -d "/vmfs/volumes/c0c1d3a9-1e99b40c/ISO/VMware-ESXi-7.0U3g-20328353-depot.zip"
+
 7 - Reboot the ESXi
