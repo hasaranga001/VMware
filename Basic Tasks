@@ -37,12 +37,16 @@ scp file.txt remote_username@10.10.0.2:/remote/directory
 
 Detach datatstore : 
 
-esxcli storage core device set --state=off -d naa.600a0980383142304f5d4f73754c6a69
+1 ) Get the Datastore UUIDs from : esxcli storage filesystem list
 
+2) Unmount datastores : esxcli storage filesystem unmount -u 5e42b405-2e3c89bf-6a40-801844ed6afe
 
-esxcli storage core device detached list
-esxcli storage core adapter rescan --all
+3)Detach the Luns from host : esxcli storage core device set --state=off -d naa.600a0980383142304f5d4f73754c6a69
 
+4) (optional) esxcli storage core device detached list
+Permanently detach storage : esxcli storage core device detached remove -d NAA_ID
+
+5) Rescan : esxcli storage core adapter rescan --all
 
 Changing Storage Policy / Encrypt VM
 $VM = Get-VM -Name 'Tanzu DHCP'
