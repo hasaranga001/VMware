@@ -43,6 +43,12 @@ Detach datatstore :
 
 3)Detach the Luns from host : esxcli storage core device set --state=off -d naa.600a0980383142304f5d4f73754c6a69
 
+4) Refresh from GUI : configure -> storage devices
+
+
+
+
+
 4) (optional) esxcli storage core device detached list
 Permanently detach storage : esxcli storage core device detached remove -d NAA_ID
 
