@@ -1,8 +1,9 @@
-Stroage VMotion
+01 )Stroage VMotion
 
 Get-VM “pgsql-hhsb-024“ |Move-VM -datastore (Get-Datastore “nfs-hh-tegile6-db-ds01“)
 
-Storage vMotion one by one VM. 
+02 )Storage vMotion one by one VM. 
+
 $VMsToRelocate = Import-Csv "C:\script\VM_list.csv"
 $Datastore = Get-Datastore -Name "destination_datastore_name"
 foreach ($VM in $VMsToRelocate)
@@ -13,7 +14,7 @@ foreach ($VM in $VMsToRelocate)
 }
 Write-Host "Completed!"
 
-Adding tags
+03 )Adding tags
 
 $datastores = Get-datastore fc-hl-na-vi04-delphix-silver-ds09
 $Tag = Get-Tag Harlow
@@ -21,41 +22,38 @@ $Tag2 = Get-Tag hl-db-delphix-prod-silver
 New-TagAssignment -Tag $Tag,Tag2 -Entity $datastore
 
 
-Adding a NFS share 
+04 )Adding a NFS share 
+
 esxcli storage nfs add -H NFS_IP|NFS_HOSTNAME -s Share_mount_point_on_the_NFS -v DatastoreName
 
-List NFS shares
+05 )List NFS shares
  esxcli storage nfs list
 
 
-Enable SSH client when SSH from ESXi host to another ESXi host.
+06 )Enable SSH client when SSH from ESXi host to another ESXi host.
 esxcli network firewall ruleset set --ruleset-id sshClient --enabled=true
 
 SCP Copy command
 scp file.txt remote_username@10.10.0.2:/remote/directory
 
 
-Detach datatstore : 
+07 ) Detach datatstore : 
 
-1 ) Get the Datastore UUIDs from : esxcli storage filesystem list
+  	a ) Get the Datastore UUIDs from : esxcli storage filesystem list
 
-2) Unmount datastores : esxcli storage filesystem unmount -u 5e42b405-2e3c89bf-6a40-801844ed6afe
+  	b) Unmount datastores : esxcli storage filesystem unmount -u 5e42b405-2e3c89bf-6a40-801844ed6afe
 
-3)Detach the Luns from host : esxcli storage core device set --state=off -d naa.600a0980383142304f5d4f73754c6a69   (Find naa value from select host->confgure->Storage device -> export )
+	c)Detach the Luns from host : esxcli storage core device set --state=off -d naa.600a0980383142304f5d4f73754c6a69   (Find naa value from select host->confgure->Storage device -> export )
 
-4) Refresh from GUI : configure -> storage devices
+	d) Refresh from GUI : configure -> storage devices
 
+	e) (optional) esxcli storage core device detached list
+	Permanently detach storage : esxcli storage core device detached remove -d NAA_ID
 
+	f) Rescan : esxcli storage core adapter rescan --all
 
+08 ) Changing Storage Policy / Encrypt VM
 
-
-4) (optional) esxcli storage core device detached list
-Permanently detach storage : esxcli storage core device detached remove -d NAA_ID
-
-5) Rescan : esxcli storage core adapter rescan --all
-
-Changing Storage Policy / Encrypt VM
 $VM = Get-VM -Name 'Tanzu DHCP'
 $storagePolicy = Get-SpbmStoragePolicy -Name 'VM Encryption Policy'
-
 Set-VM $VM -StoragePolicy $storagePolicy -Confirm:$false
