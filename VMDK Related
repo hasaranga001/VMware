@@ -22,3 +22,4 @@ The Device ID is always c. At the controller, it depends whether you are using t
 Checking and repairing .vmdk .
 
 vmkfstools -x [check or repair] /vmfs/volumes/my_datastore/my_disk.vmdk
+Ex: vmkfstools -x check /vmfs/volumes/my_datastore/my_disk.vmdk
