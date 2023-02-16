@@ -1,18 +1,16 @@
-##Get ESXi versions of hosts
+01 ) Get ESXi versions of hosts
 get-vmhost | Select Name, @{N=”Cluster”;E={Get-Cluster -VMHost $_}},@{Label = "ESX Build" ; Expression = {$_.build}},@{Label = "Server Model"; Expression = {$_.ExtensionData.Hardware.SystemInfo.Vendor}}  
-
 | Export-csv "C:\Users\hasaranga\Downloads\c\HH-VI-DB.csv"
 
-## Get VM disk type
+02 ) Get VM disk type
  Get-VM "VM Name" | Get-HardDisk | Format-Table
  
- # Server hardware details 
+03 ) Server hardware details 
 Get-VMHost | select-object Name, manufacturer, model, ProcessorType, NumCPU, @{l='MemoryTotalGB';e={($_.memorytotalGB).tostring("##.##")}}, version, Build | Export-Csv c:\hasa\hl-hostinfo2.csv
  
-# Server NIC card details
+04 )Server NIC card details
 
 foreach ($h in (Get-Vmhost)){(Get-EsxCli -VMHost $h).network.nic.list() | Select @{N="Model";E={$h}},@{N="DataCenter";E={$h | Get-DataCenter}},@{N="Cluster";E={$h | Get-Cluster}}, Name, Description | ft}
 
-# List VMFS version
-
+05 )List VMFS version
 Get-Datastore | Get-View | Select-Object Name, @{N="VMFS version";E={$_.Info.Vmfs.Version}}, @{N="BlocksizeMB";E={$_.Info.Vmfs.BlockSizeMB}} | Export-Csv c:\hasa\hx-datastore-vmfs.csv
