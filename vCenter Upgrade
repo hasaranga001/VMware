@@ -1,0 +1,27 @@
+Attache .ISO to the VM and use check for update in :5480 console.   ISO will looksl ike FP for patches . 
+
+Collect Details : 
+VM Name
+Host
+Cluster
+PortGroup
+Datastore
+Folder 
+Deployment Size
+Temp IP
+Temp Subnect
+Temp  GW
+Temp DNS
+
+
+Steps : 
+Shutdown vCenter Server
+Take a snapshot 
+Turn On vCenter and ensure all services are running
+Check root/administrator passwords are working
+Download vCenter 7.0 U2 (ISO location : HX Veeam)
+Check last vCenter backup is completed
+Perform Upgrade
+Increase vCPU and RAM
+Convert license and install
+Check vCener backups in new instance.
