@@ -1,4 +1,9 @@
 
+
+1 ) For ESXi Upgrade : Download the ISO file from Customer Connect (Products and Accounts -> All products) and attached ISO as baseline and upgrade. 
+
+2 ) For patch level update , download patch from https://customerconnect.vmware.com/patch  , Patch looks like VMware-ESXi-7.0U3k-21313628-depot a ZIP file and follow below instructions. 
+
 1 - Put your ESXi Host in Maintenace Mode.
 2 - Upload the file to a datastore.
 Login to Vmware Vsphere web client, Select Esxi server or datastore, on the Configure tab / Manage tab for ESXi, Select Storage/ Datastores, right-click datastore, where you want to upload files, click Browse Files from the context menu.
