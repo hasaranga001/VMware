@@ -52,6 +52,8 @@ scp file.txt remote_username@10.10.0.2:/remote/directory
 
 	f) Rescan : esxcli storage core adapter rescan --all
 
+** If the datastore still not removed , reboot vpxa/hostd servervice -> reboot the host. 
+
 08 ) Changing Storage Policy / Encrypt VM
 
 $VM = Get-VM -Name 'Tanzu DHCP'
