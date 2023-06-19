@@ -14,3 +14,53 @@ foreach ($row in $excelData) {
      Get-VMHostService -VMHost $ESXi | where {$_.Key -eq 'TSM-SSH'} | Set-VMHostService -Policy Off
      Get-VMHostService -VMHost $ESXi | where {$_.Key -eq 'TSM-SSH'} | Stop-VMHostService -Confirm:$false
 }
+
+
+	• Copy file to a VM via PowerCLI
+
+$vm = Get-VM -Name compute-manual 
+Get-Item "./cloudipconfig.yaml" | Copy-VMGuestFile -Destination /home/ubuntu/ -VM $vm -LocalToGuest
+
+
+	• IP Configuration NetPlan
+
+
+#cloud-config
+network:
+  version: 2
+  ethernets:
+    ens160:  # Replace with the appropriate interface name
+      dhcp4: no
+      addresses: [10.7.156.160/24]  # Replace with your desired IP address and subnet
+      gateway4: 10.7.156.1  # Replace with your gateway IP
+      nameservers:
+        addresses: [172.16.1.100,172.18.1.100]  # Replace with your DNS server IPs
+
+
+	• Copy the Public Key to destination VM
+
+#!/bin/bash
+# SSH connection details
+destination_username="ubuntu"
+destination_ip="<VM-IP>"
+# Generate SSH key pair if not already generated
+if [ ! -f ~/.ssh/id_rsa ]; then
+    ssh-keygen -t rsa -b 4096
+fi
+# Retrieve the public key
+public_key=$(cat ~/.ssh/id_rsa.pub)
+# SSH into the destination VM and perform necessary configurations
+ssh $destination_username@$destination_ip << EOF
+    # Create the .ssh directory if it doesn't exist
+    mkdir -p ~/.ssh
+    # Set correct permissions for the .ssh directory
+    chmod 700 ~/.ssh
+    # Create or overwrite the authorized_keys file
+    echo "$public_key" > ~/.ssh/authorized_keys
+    # Set correct permissions for the authorized_keys file
+    chmod 600 ~/.ssh/authorized_keys
+    # Disable password authentication in SSH configuration
+    sudo sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
+    # Restart the SSH service
+    sudo service ssh restart
+EOF
