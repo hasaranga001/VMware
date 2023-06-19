@@ -1,0 +1,16 @@
+Dishable SSH . 
+
+# Load the Excel file into a variable
+$excelFilePath = "C:\scripts\Book1.xlsx"
+$excelData = Import-Excel -Path $excelFilePath
+
+# Loop through each row in the Excel file
+foreach ($row in $excelData) {
+    # Get the ESXi hostname from the Excel row
+    $ESXi = $row.A
+
+    # Run the PowerCLI command for each ESXi host
+	Write-Host "ESXi Host: $ESXi"
+     Get-VMHostService -VMHost $ESXi | where {$_.Key -eq 'TSM-SSH'} | Set-VMHostService -Policy Off
+     Get-VMHostService -VMHost $ESXi | where {$_.Key -eq 'TSM-SSH'} | Stop-VMHostService -Confirm:$false
+}
