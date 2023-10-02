@@ -14,3 +14,12 @@ foreach ($h in (Get-Vmhost)){(Get-EsxCli -VMHost $h).network.nic.list() | Select
 
 05 )List VMFS version
 Get-Datastore | Get-View | Select-Object Name, @{N="VMFS version";E={$_.Info.Vmfs.Version}}, @{N="BlocksizeMB";E={$_.Info.Vmfs.BlockSizeMB}} | Export-Csv c:\hasa\hx-datastore-vmfs.csv
+
+Get Full Details of the host
+
+
+Get-VMHost | Select-Object Name, Manufacturer, Model, ProcessorType, NumCPU, @{l='MemoryTotalGB';e={($_.MemoryTotalGB).ToString("##.##")}}, Version, Build,
+    @{l='SerialNumber';e={(Get-VMHostHardware -VMHost $_).SerialNumber}},
+    @{n="ManagementIP"; e={Get-VMHostNetworkAdapter -VMHost $_ -VMKernel | ?{$_.ManagementTrafficEnabled} | %{$_.Ip}}},
+    @{l='ClusterName';e={(Get-Cluster -VMHost $_ | Select-Object -ExpandProperty Name)}} |
+    Export-Csv -Path C:\Users\hasaranga\Documents\hxhardware4.csv -NoTypeInformation
