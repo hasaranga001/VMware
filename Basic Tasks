@@ -59,3 +59,9 @@ scp file.txt remote_username@10.10.0.2:/remote/directory
 $VM = Get-VM -Name 'Tanzu DHCP'
 $storagePolicy = Get-SpbmStoragePolicy -Name 'VM Encryption Policy'
 Set-VM $VM -StoragePolicy $storagePolicy -Confirm:$false
+
+09) Check Network card related issues
+
+esxcli network nic list
+esxcli network nic stats get -n vmnic5
+cat /var/log/vobd.log | grep vmnic5
