@@ -65,3 +65,7 @@ Set-VM $VM -StoragePolicy $storagePolicy -Confirm:$false
 esxcli network nic list
 esxcli network nic stats get -n vmnic5
 cat /var/log/vobd.log | grep vmnic5
+
+** Find VM from MOB
+Get-VM -ID <*moRef> | ft -Property Name,ID -AutoSize
+
