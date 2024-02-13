@@ -69,3 +69,6 @@ cat /var/log/vobd.log | grep vmnic5
 ** Find VM from MOB
 Get-VM -ID <*moRef> | ft -Property Name,ID -AutoSize
 
+10) iDRAC 400 error , add below via CLI
+
+racadm set iDRAC.WebServer.HostHeaderCheck Disabled
