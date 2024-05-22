@@ -75,3 +75,6 @@ racadm set iDRAC.WebServer.HostHeaderCheck Disabled
 
 11) Find VM name from IP address in the vCenter
 Get-VM * |where-object{$_.Guest.IPAddress -eq "10.49.2.78"}|select Name,  VMHost, PowerState,GuestId,@{N="IP  Address";E={@($_.guest.IPAddress[0])}}|ft
+
+12) List Snapshots for VMs 
+get-vm | Get-Snapshot | select vm, name, description, created, sizegb
