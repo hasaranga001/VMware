@@ -1,0 +1,8 @@
+1.  service-control --status      : List the running services
+
+2.   service-control --stop --all   : Stop and start services.
+     service-control --start --all
+
+3. Check for expired certificaters : https://knowledge.broadcom.com/external/article?legacyId=79248
+
+4.  
